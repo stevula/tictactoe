@@ -1,7 +1,14 @@
 # Tic-Tac-Toe
 Terminal game I made in Ruby.
 
-# Features
-* Players can choose any symbol (not limited to "X" and "O"!)
+# Installation
+1. Clone the repo to the desired location on your hard drive.
+2. Navigate to the tictactoe directory in the Terminal.
+3. Run tictactoe.rb with the following command: ``` ruby tictactoe.rb ```
 
-# only allow valid inputs for coords
+# Features
+* No longer limited to "X" and "O"!
+* Players can start a new game without quitting the program.
+
+# Specs
+* RSpec test coverage.

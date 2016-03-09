@@ -34,21 +34,26 @@ class Game
 
     while @board.status == :ongoing
       puts @board
-      puts "Player #{current_player.number} (#{current_player.glyph}), enter row 0, 1, or 2:"
-      row_number = gets.to_i
-
-      puts "Player #{current_player.number} (#{current_player.glyph}), enter column 0, 1, or 2:"
-      column_number = gets.to_i
-
-      @board.mark(player: current_player, row: row_number, column: column_number)
+      
+      get_move(player: current_player)
 
       # alternate player_number between 1 and 2 on each loop
       current_player = current_player == @player_1 ? @player_2 : @player_1
     end
 
+    # show final board
     puts @board
 
     declare_status
+  end
+
+  def get_move(player: player)
+    puts "Player #{player.number} (#{player.glyph}), enter row 0, 1, or 2:"
+    row = gets.to_i
+    puts "Player #{player.number} (#{player.glyph}), enter column 0, 1, or 2:"
+    column = gets.to_i
+
+    @board.mark(player: player, row: row, column: column)
   end
 
   def declare_status

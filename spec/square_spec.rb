@@ -3,14 +3,21 @@ require_relative '../square'
 describe Square do
   let(:square) {Square.new}
 
-  it 'has a value' do
-    expect(square).to respond_to :value
+  describe '#player' do
+    it 'returns the player who marked the square' do
+      expect(square).to respond_to :player
+    end
   end
 
   describe '#mark(glyph)' do
     it 'assigns the glyph as the value' do
-      square.mark("X")
-      expect(square.value).to eq "X"
+      player = "Player_X"
+      square.mark(player)
+      expect(square.player).to eq player
+    end
+
+    it 'does not allow a player to mark it if it is already marked' do
+      pending
     end
   end
 end

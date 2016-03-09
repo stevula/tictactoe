@@ -3,24 +3,17 @@ require_relative '../player'
 
 describe Board do
   let(:board) {Board.new}
-  let(:player_1) {Player.new("O")}
-  let(:player_2) {Player.new("X")}
-
-  describe '#mark(player, row, column)' do
-    it 'assigns the player\'s glyph to the square at x, y' do
-      board.mark(player_1, 0, 0)
-      expect(board.to_s[0][0].value).to eq player_1.glyph
-    end
-  end
+  let(:player_1) {Player.new(glyph: "O", number: 1)}
+  let(:player_2) {Player.new(glyph: "X", number: 2)}
 
   describe '#status' do
     it 'returns solved when the board is won' do
       # O O O
       # - - -
       # - - -
-      board.mark(player_1, 0, 0)
-      board.mark(player_1, 0, 1)
-      board.mark(player_1, 0, 2)
+      board.mark(player: player_1, row: 0, column: 0)
+      board.mark(player: player_1, row: 0, column: 1)
+      board.mark(player: player_1, row: 0, column: 2)
       expect(board.status).to be :solved
     end
 
@@ -28,15 +21,15 @@ describe Board do
       # O X O
       # X X O
       # O O X
-      board.mark(player_1, 0, 0)
-      board.mark(player_2, 0, 1)
-      board.mark(player_1, 0, 2)
-      board.mark(player_2, 1, 0)
-      board.mark(player_2, 1, 1)
-      board.mark(player_1, 1, 2)
-      board.mark(player_1, 2, 0)
-      board.mark(player_1, 2, 1)
-      board.mark(player_2, 2, 2)
+      board.mark(player: player_1, row: 0, column: 0)
+      board.mark(player: player_2, row: 0, column: 1)
+      board.mark(player: player_1, row: 0, column: 2)
+      board.mark(player: player_2, row: 1, column: 0)
+      board.mark(player: player_2, row: 1, column: 1)
+      board.mark(player: player_1, row: 1, column: 2)
+      board.mark(player: player_1, row: 2, column: 0)
+      board.mark(player: player_1, row: 2, column: 1)
+      board.mark(player: player_2, row: 2, column: 2)
       expect(board.status).to be :stalemate
     end
 
@@ -44,12 +37,12 @@ describe Board do
       # O X O
       # X X O
       # - - -
-      board.mark(player_1, 0, 0)
-      board.mark(player_2, 0, 1)
-      board.mark(player_1, 0, 2)
-      board.mark(player_2, 1, 0)
-      board.mark(player_2, 1, 1)
-      board.mark(player_1, 1, 2)
+      board.mark(player: player_1, row: 0, column: 0)
+      board.mark(player: player_2, row: 0, column: 1)
+      board.mark(player: player_1, row: 0, column: 2)
+      board.mark(player: player_2, row: 1, column: 0)
+      board.mark(player: player_2, row: 1, column: 1)
+      board.mark(player: player_1, row: 1, column: 2)
       expect(board.status).to be :ongoing
     end
   end

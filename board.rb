@@ -18,9 +18,9 @@ class Board
       return :solved
     elsif filled?
       return :stalemate
-    else
-      return :ongoing
     end
+
+    :ongoing
   end
 
   def mark(player: player, row: row, column: column)
@@ -59,7 +59,7 @@ class Board
     # return the player if there's a diagonal streak
     diagonal = (0..2).collect {|index| board[index][index]}
     if diagonal.all? {|square| square.player && square.player == diagonal.first.player}
-      return square.first.player
+      return diagonal.first.player
     end
 
     false

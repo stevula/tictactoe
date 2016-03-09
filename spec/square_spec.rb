@@ -3,8 +3,8 @@ require_relative '../player'
 
 describe Square do
   let(:square) {Square.new}
-  let(:player_1) {Player.new(glyph: "X", number: 1)}
-  let(:player_2) {Player.new(glyph: "O", number: 2)}
+  let(:player_1) {Player.new(number: 1)}
+  let(:player_2) {Player.new(number: 2)}
 
   describe '#player' do
     it 'returns the player who marked the square' do

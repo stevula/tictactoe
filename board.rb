@@ -1,9 +1,12 @@
 require_relative 'square'
 
 class Board
+  attr_reader :winner
+
   def initialize
     # create 3x3 (2-d) array of Squares
     @board = Array.new(3) {Array.new(3) {Square.new}}
+    @winner = nil
   end
 
   def to_s
@@ -14,7 +17,7 @@ class Board
   end
 
   def status
-    if solved?
+    if get_winner
       return :solved
     elsif filled?
       return :stalemate
@@ -25,25 +28,25 @@ class Board
 
   def mark(player: player, row: row, column: column)
     square = @board[row][column]
-    square.mark(player.glyph)
+    square.mark(player)
   end
 
   private
 
   def filled?
-    # true if all squares filled, false if any nil values on board
-    @board.flatten.none? {|square| square.value.nil?}
+    # true if all squares filled, false if any nil players on board
+    @board.flatten.none? {|square| square.player.nil?}
   end
 
-  def solved?
-    check_rows || check_columns || check_diagonal || check_diagonal_inverse
+  def get_winner
+    @winner = check_rows || check_columns || check_diagonal || check_diagonal_inverse
   end
 
   def check_rows(board = @board)
-    # return the value if there's a streak in any row
+    # return the player if there's a streak in any row
     board.each do |row|
-      if row.all? {|square| square.value && square.value == row.first.value}
-        return row.first.value
+      if row.all? {|square| square.player && square.player == row.first.player}
+        return row.first.player
       end
     end
 
@@ -56,8 +59,8 @@ class Board
 
   def check_diagonal(board = @board)
     diagonal = (0..2).collect {|index| board[index][index]}
-    if diagonal.all? {|square| square.value && square.value == diagonal.first.value}
-      return square.first.value
+    if diagonal.all? {|square| square.player && square.player == diagonal.first.player}
+      return square.first.player
     end
 
     false

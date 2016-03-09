@@ -1,15 +1,15 @@
 class Square
-  attr_reader :value
+  attr_reader :player
 
   def initialize
-    @value = nil
+    @player = nil
   end
 
   def mark(glyph)
-    @value = glyph
+    @player = glyph
   end
 
   def to_s
-    value ? @value.to_s : "-"
+    player ? @player.glyph : "-"
   end
 end

@@ -24,7 +24,8 @@ class Board
   end
 
   def mark(player: player, row: row, column: column)
-    square = @board[row][column]
+    # index from 1 instead of 0
+    square = @board[row - 1][column - 1]
     square.mark(player)
   end
 

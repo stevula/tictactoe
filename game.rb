@@ -62,9 +62,9 @@ class Game
     # declare winner or stalemate
     declare_status
 
+    # replay/abort
     puts "Would you like to play again? (Y/N)"
     response = gets.chomp
-
     response.upcase == "Y" ? run : abort("Thanks for playing!")
   end
 
@@ -81,10 +81,10 @@ class Game
   end
 
   def get_row(player)
-    puts "Player #{player.number} (#{player.glyph}), enter row 0, 1, or 2:"
+    puts "Player #{player.number} (#{player.glyph}), enter row 1, 2, or 3:"
     row = gets.chomp
 
-    until ("0".."2").to_a.include? row
+    until ("1".."3").to_a.include? row
       puts "Please select valid row number!"
       row = gets.chomp
     end
@@ -93,10 +93,10 @@ class Game
   end
 
   def get_column(player)
-    puts "Player #{player.number} (#{player.glyph}), enter column 0, 1, or 2:"
+    puts "Player #{player.number} (#{player.glyph}), enter column 1, 2, or 3:"
     column = gets.chomp
 
-    until ("0".."2").to_a.include? column
+    until ("1".."3").to_a.include? column
       puts "Please select valid column number!"
       column = gets.chomp
     end

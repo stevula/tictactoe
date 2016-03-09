@@ -48,12 +48,16 @@ class Game
   end
 
   def get_move(player: player)
-    puts "Player #{player.number} (#{player.glyph}), enter row 0, 1, or 2:"
-    row = gets.to_i
-    puts "Player #{player.number} (#{player.glyph}), enter column 0, 1, or 2:"
-    column = gets.to_i
+    loop do
+      puts "Player #{player.number} (#{player.glyph}), enter row 0, 1, or 2:"
+      row = gets.to_i
+      puts "Player #{player.number} (#{player.glyph}), enter column 0, 1, or 2:"
+      column = gets.to_i
 
-    @board.mark(player: player, row: row, column: column)
+      return if @board.mark(player: player, row: row, column: column)
+
+      puts "Cannot select a square that has already been marked!"
+    end
   end
 
   def declare_status

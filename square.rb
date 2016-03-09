@@ -6,7 +6,10 @@ class Square
   end
 
   def mark(player)
-    @player = player unless @player
+    # prevent marking if already marked
+    return false if @player
+
+    @player = player
   end
 
   def to_s

@@ -6,7 +6,7 @@ class Square
   end
 
   def mark(player)
-    @player = player
+    @player = player unless @player
   end
 
   def to_s

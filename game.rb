@@ -19,7 +19,16 @@ class Game
     @player_2 = Player.new(number: 2)
 
     get_player_symbol(@player_1)
-    get_player_symbol(@player_2)
+
+    # prevent player 2 from choosing same glyph as player 1
+    while @player_2.glyph.to_s == "" || @player_2.glyph == @player_1.glyph
+      if @player_2.glyph == @player_1.glyph
+        @player_2.glyph = nil
+        puts "Please enter a different symbol from Player 1!"
+      end
+
+      get_player_symbol(@player_2)
+    end
 
     puts "Player 1, you are #{@player_1.glyph}."
     puts "Player 2, you are #{@player_2.glyph}."
@@ -69,7 +78,7 @@ class Game
   end
 
   def declare_status
-    victory = "Congratulations, Player #{@board.winner.number}!"
+    victory = "Congratulations, Player #{@board.winner.number if @board.winner}!"
     stalemate = "Stalemate!"
 
     puts @board.status == :solved ? victory : stalemate

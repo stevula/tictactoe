@@ -62,17 +62,15 @@ class Game
     # declare winner or stalemate
     declare_status
 
-    # replay/abort
-    puts "Would you like to play again? (Y/N)"
-    response = gets.chomp
-    response.upcase == "Y" ? run : abort("Thanks for playing!")
+    # replay option
+    replay_or_abort
   end
 
   def get_move(player)
     # loop until unmarked square is chosen
     loop do
-      row = get_row(player)
-      column = get_column(player)
+      row    = get_coords(player: player, option: row)
+      column = get_coords(player: player, option: column)
 
       return if @board.mark(player: player, row: row, column: column)
 
@@ -80,28 +78,16 @@ class Game
     end
   end
 
-  def get_row(player)
-    puts "Player #{player.number} (#{player.glyph}), enter row 1, 2, or 3:"
-    row = gets.chomp
+  def get_coords(player: player, option: row_or_column)
+    puts "Player #{player.number} (#{player.glyph}), enter #{option} 1, 2, or 3:"
+    position = gets.chomp
 
-    until ("1".."3").to_a.include? row
-      puts "Please select valid row number!"
-      row = gets.chomp
+    until ("1".."3").to_a.include? position
+      puts "Please select valid #{option} number!"
+      position = gets.chomp
     end
 
-    row.to_i
-  end
-
-  def get_column(player)
-    puts "Player #{player.number} (#{player.glyph}), enter column 1, 2, or 3:"
-    column = gets.chomp
-
-    until ("1".."3").to_a.include? column
-      puts "Please select valid column number!"
-      column = gets.chomp
-    end
-
-    column.to_i
+    position.to_i
   end
 
   def declare_status
@@ -109,5 +95,11 @@ class Game
     stalemate = "Stalemate!"
 
     puts @board.status == :solved ? victory : stalemate
+  end
+
+  def replay_or_abort
+    puts "Would you like to play again? (Y/N)"
+    response = gets.chomp
+    response.upcase == "Y" ? run : abort("Thanks for playing!")
   end
 end

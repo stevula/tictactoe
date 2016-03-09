@@ -2,22 +2,9 @@ require_relative 'board'
 require_relative 'square'
 require_relative 'player'
 
-puts "Welcome to Tic-Tac-Toe!"
-
-puts "Player 1, pick a symbol (X/O):"
-glyph = gets.chomp
-player_1 = Player.new(glyph: glyph, number: 1)
-
-puts "Player 2, pick a symbol (X/O):"
-glyph = gets.chomp
-player_2 = Player.new(glyph: glyph, number: 2)
-
-puts "Player 1, you are #{player_1.glyph}."
-puts "Player 2, you are #{player_2.glyph}."
-
 board = Board.new
 
-current_player = player_1
+current_player = board.player_1
 while board.status == :ongoing
   puts board
   puts "Player #{current_player.number} (#{current_player.glyph}), enter row 0, 1, or 2:"
@@ -29,7 +16,7 @@ while board.status == :ongoing
   board.mark(player: current_player, row: row_number, column: column_number)
 
   # alternate player_number between 1 and 2 on each loop
-  current_player = current_player == player_1 ? player_2 : player_1
+  current_player = current_player == board.player_1 ? board.player_2 : board.player_1
 end
 
 puts board

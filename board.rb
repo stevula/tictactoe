@@ -10,10 +10,7 @@ class Board
   end
 
   def to_s
-    @board.each do |row|
-      puts row.map(&:to_s).join(" ")
-      puts
-    end
+    @board.map {|row| puts row.map(&:to_s).join(" ")}
   end
 
   def status
@@ -33,13 +30,13 @@ class Board
 
   private
 
-  def filled?
-    # true if all squares filled, false if any nil players on board
-    @board.flatten.none? {|square| square.player.nil?}
-  end
-
   def get_winner
     @winner = check_rows || check_columns || check_diagonal || check_diagonal_inverse
+  end
+
+  def filled?
+    # check if all squares filled
+    @board.flatten.none? {|square| square.player.nil?}
   end
 
   def check_rows(board = @board)

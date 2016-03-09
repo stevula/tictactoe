@@ -5,8 +5,8 @@ class Square
     @player = nil
   end
 
-  def mark(glyph)
-    @player = glyph
+  def mark(player)
+    @player = player
   end
 
   def to_s

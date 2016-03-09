@@ -55,6 +55,7 @@ class Board
   end
 
   def check_diagonal(board = @board)
+    # return the player if there's a diagonal streak
     diagonal = (0..2).collect {|index| board[index][index]}
     if diagonal.all? {|square| square.player && square.player == diagonal.first.player}
       return square.first.player

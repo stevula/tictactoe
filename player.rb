@@ -1,7 +1,8 @@
 class Player
-  attr_reader :glyph, :number
+  attr_reader :number
+  attr_accessor :glyph
 
-  def initialize(glyph: glyph, number: number)
+  def initialize(number: number)
     # e.g. "X" || "O"
     @glyph = glyph
     @number = number

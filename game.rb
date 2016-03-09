@@ -3,7 +3,7 @@ class Game
 
   def initialize
     greet
-    @player_1, @player_2 = initialize_players
+    initialize_players
     @board = Board.new
     run
   end
@@ -15,18 +15,24 @@ class Game
   end
 
   def initialize_players
-    puts "Player 1, pick a symbol (X/O):"
-    player_1_glyph = gets.chomp
-    player_1 = Player.new(glyph: player_1_glyph, number: 1)
+    @player_1 = Player.new(number: 1)
+    @player_2 = Player.new(number: 2)
 
-    puts "Player 2, pick a symbol (X/O):"
-    player_2_glyph = gets.chomp
-    player_2 = Player.new(glyph: player_2_glyph, number: 2)
+    get_player_symbol(@player_1)
+    get_player_symbol(@player_2)
 
-    puts "Player 1, you are #{player_1.glyph}."
-    puts "Player 2, you are #{player_2.glyph}."
+    puts "Player 1, you are #{@player_1.glyph}."
+    puts "Player 2, you are #{@player_2.glyph}."
+  end
 
-    return player_1, player_2
+  def get_player_symbol(player)
+    puts "Player #{player.number}, pick a symbol (X/O/etc.):"
+
+    # prevent nil or empty string input
+    while player.glyph.to_s == ""
+      player.glyph = gets.chomp
+      puts "Please enter a character!" if player.glyph.to_s == ""
+    end
   end
 
   def run
@@ -35,7 +41,7 @@ class Game
     while @board.status == :ongoing
       puts @board
       
-      get_move(player: current_player)
+      get_move(current_player)
 
       # alternate player_number between 1 and 2 on each loop
       current_player = current_player == @player_1 ? @player_2 : @player_1
@@ -44,10 +50,12 @@ class Game
     # show final board
     puts @board
 
+    # declare winner or stalemate
     declare_status
   end
 
-  def get_move(player: player)
+  def get_move(player)
+    # loop until unmarked square is chosen
     loop do
       puts "Player #{player.number} (#{player.glyph}), enter row 0, 1, or 2:"
       row = gets.to_i

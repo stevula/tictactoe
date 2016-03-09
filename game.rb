@@ -4,7 +4,6 @@ class Game
   def initialize
     greet
     initialize_players
-    @board = Board.new
     run
   end
 
@@ -45,6 +44,7 @@ class Game
   end
 
   def run
+    @board = Board.new
     current_player = @player_1
 
     while @board.status == :ongoing
@@ -61,6 +61,11 @@ class Game
 
     # declare winner or stalemate
     declare_status
+
+    puts "Would you like to play again? (Y/N)"
+    response = gets.chomp
+
+    response.upcase == "Y" ? run : abort("Thanks for playing!")
   end
 
   def get_move(player)
